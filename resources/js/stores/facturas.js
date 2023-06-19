@@ -14,7 +14,8 @@ export const useFacturasStore = defineStore('facturas', {
             fecha: {
                 inicio: null,
                 fin: null
-            }
+            },
+            search: ''
         },
         modals: {
             default: false,
@@ -47,12 +48,23 @@ export const useFacturasStore = defineStore('facturas', {
     actions: {
 
         filterFacturas(){
-            let filtered = this.filterByNumFactura(this.facturas);
+            let filtered = this.includesSearchInFilter(this.facturas);
+            filtered = this.filterByNumFactura(filtered);
             filtered = this.filterByCedulaCliente(filtered);
             filtered = this.filterByNombreCliente(filtered);
             filtered = this.filterByFecha(filtered);
 
             this.facturasFiltered = filtered;
+        },
+
+        includesSearchInFilter(items){
+            return this.filters.search
+                ? items.filter(
+                        item => Object.values(item).some(
+                            item => item.toString().toLowerCase().includes(this.filters.search.toLowerCase())
+                        )
+                    )
+                : items;
         },
 
         filterByNumFactura(items){

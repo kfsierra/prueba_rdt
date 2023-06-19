@@ -33,7 +33,12 @@
         </div>
 
         <div class="flex">
-            <input class="border-2 p-2 w-80 flex-1" placeholder="Buscar..." type="text">
+            <input
+            @input="filterFacturas()"
+            v-model="filters.search"
+            class="border-2 p-2 w-80 flex-1"
+            placeholder="Buscar..."
+            type="text">
         </div>
 
     </div>
@@ -91,7 +96,7 @@
                         'p-4',
                         'border-l-2 border-t-2 border-b-2 w-1/5'
                     ]">
-                        {{ factura.fecha }}
+                        {{ moment(factura.fecha).format('YYYY-MM-DD hh:mm A') }}
                     </td>
 
                     <td :class="[
@@ -205,10 +210,11 @@
 import { useFacturasStore } from '@/stores/facturas';
 import { storeToRefs } from 'pinia';
 import { ref, computed } from 'vue';
+import moment from 'moment';
 
 const useFacturas = useFacturasStore();
-const { facturasFiltered, modals, facturaDetail, facturaCreation } = storeToRefs(useFacturas);
-const { getFacturaDetail, deleteFacturaDetail, getNecessaryDataToCreate, deleteFactura } = useFacturas;
+const { facturasFiltered, modals, facturaDetail, facturaCreation, filters } = storeToRefs(useFacturas);
+const { getFacturaDetail, deleteFacturaDetail, getNecessaryDataToCreate, deleteFactura, filterFacturas } = useFacturas;
 
 /**
  * Reactive
