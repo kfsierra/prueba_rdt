@@ -306,6 +306,8 @@ export const useFacturasStore = defineStore('facturas', {
             this.facturaCreation.creationError.message = null;
             this.facturaCreation.creationError.visible = false;
 
+            this.facturaCreation.items = [];
+
             this.modals.facturaCreation = false;
 
         },
