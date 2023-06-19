@@ -27,3 +27,5 @@ Route::post('deleteFacturaDetail', [FacturaProductoController::class, 'deleteFac
 Route::get('getNecessaryDataToCreate', [FacturaController::class, 'getNecessaryDataToCreate']);
 Route::post('createFactura', [FacturaController::class, 'store']);
 Route::post('deleteFactura', [FacturaController::class, 'destroy']);
+
+Route::post('exportPDF', [FacturaController::class, 'exportPDF']);

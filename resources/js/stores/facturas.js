@@ -47,6 +47,10 @@ export const useFacturasStore = defineStore('facturas', {
         facturaExport: {
             dropdown: {
                 visible: false
+            },
+            buttons: {
+                excel: true,
+                pdf: true
             }
         },
 
@@ -316,8 +320,18 @@ export const useFacturasStore = defineStore('facturas', {
                 this.facturas = this.facturas.filter(item => item.num_factura != numFactura);
                 this.facturasFiltered = this.facturas;
             });
-        }
+        },
 
+        /**
+         * Export to pdf
+         */
+        exportPDF(){
+            this.facturaExport.buttons.pdf = false;
+            axios.post('api/exportPDF').then(response => {
+                window.open(response.data, "_blank");
+                this.facturaExport.buttons.pdf = true;
+            })
+        }
     },
 
     getters: {

@@ -108,4 +108,42 @@ class FacturaController extends Controller
         return 'OK';
     }
 
+    /**
+     * PDF
+     */
+    public function exportPDF()
+    {
+        $facturas = $this->getDataExport();
+
+        $pdf = \PDF::loadView('pdf.facturas', compact('facturas'));
+        $pdf->save(storage_path('app/public/') . 'facturas.pdf');
+
+        return url('/storage/facturas.pdf');
+    }
+
+    protected function getDataExport()
+    {
+        $facturas = Factura::select(
+            'factura.num_factura',
+            'cliente.cedula',
+            DB::raw("CONCAT(cliente.nombre, ' ', cliente.apellido) AS cliente"),
+            'factura.created_at AS fecha'
+        )->join('cliente', 'cliente.id_cliente', '=', 'factura.id_cliente')
+        ->get();
+
+        foreach ($facturas as $factura) {
+            $factura->detalle = FacturaProducto::where('factura_producto.num_factura', $factura->num_factura)
+            ->select(
+                'factura_producto.id_producto',
+                'producto.nombre AS producto_nombre',
+                'producto.precio',
+                'factura_producto.cantidad'
+            )
+            ->join('producto', 'producto.id_producto', '=', 'factura_producto.id_producto')
+            ->get();
+        }
+
+        return $facturas;
+    }
+
 }

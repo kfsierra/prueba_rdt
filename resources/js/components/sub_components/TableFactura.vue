@@ -40,14 +40,21 @@
                 shadow
                 flex
                 flex-col items-start">
-                    <button class="flex gap-2 items-center hover:bg-blue-200 w-full p-2">
+
+                    <button
+                    :disabled="!facturaExport.buttons.excel">
                         <i class="bi bi-file-earmark-excel text-green-500"></i>
                         Excel
                     </button>
-                    <button class="flex gap-2 items-center hover:bg-blue-200 w-full p-2">
+
+                    <button
+                    @click="exportPDF()"
+                    class="flex gap-2 items-center hover:bg-blue-200 w-full p-2"
+                    :disabled="!facturaExport.buttons.pdf">
                         <i class="bi bi-file-earmark-pdf text-red-500"></i>
                         PDF
                     </button>
+
                 </div>
 
             </div>
@@ -274,7 +281,8 @@ const {
     deleteFacturaDetail,
     getNecessaryDataToCreate,
     deleteFactura,
-    filterFacturas
+    filterFacturas,
+    exportPDF
 } = useFacturas;
 
 /**
