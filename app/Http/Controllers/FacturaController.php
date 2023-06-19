@@ -138,6 +138,7 @@ class FacturaController extends Controller
             DB::raw("CONCAT(cliente.nombre, ' ', cliente.apellido) AS cliente"),
             'factura.created_at AS fecha'
         )->join('cliente', 'cliente.id_cliente', '=', 'factura.id_cliente')
+        ->orderBy('factura.num_factura', 'asc')
         ->get();
 
         foreach ($facturas as $factura) {

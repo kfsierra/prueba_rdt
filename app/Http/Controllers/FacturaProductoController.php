@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FacturaProducto;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class FacturaProductoController extends Controller
@@ -25,9 +26,17 @@ class FacturaProductoController extends Controller
     }
 
     public function deleteFacturaDetail(Request $request){
+
+        $itemAdded = FacturaProducto::where('id_producto', $request->idProducto)
+        ->where('num_factura', $request->numFactura)
+        ->first();
+
         FacturaProducto::where('num_factura', $request->numFactura)
         ->where('id_producto', $request->idProducto)
         ->delete();
+
+        Producto::where('id_producto', $request->idProducto)
+        ->increment('stock', $itemAdded->cantidad);
 
         return 'success';
     }

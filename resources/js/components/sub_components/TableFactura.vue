@@ -264,7 +264,7 @@
 
 import { useFacturasStore } from '@/stores/facturas';
 import { storeToRefs } from 'pinia';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import moment from 'moment';
 
 const useFacturas = useFacturasStore();
@@ -275,7 +275,8 @@ const {
     facturaDetail,
     facturaCreation,
     filters,
-    facturaExport
+    facturaExport,
+    pagination
 } = storeToRefs(useFacturas);
 
 const {
@@ -287,16 +288,6 @@ const {
     exportPDF,
     exportEXCEL
 } = useFacturas;
-
-/**
- * Reactive
- */
-const pagination = ref({
-    start: 0,
-    numItemsShowing: 10,
-    pageActive: 1,
-    numPages: 1
-});
 
 /**
  * Computed

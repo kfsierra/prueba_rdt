@@ -55,7 +55,14 @@ export const useFacturasStore = defineStore('facturas', {
         },
 
         clientesToSelect: [],
-        productosToSelect: []
+        productosToSelect: [],
+
+        pagination: {
+            start: 0,
+            numItemsShowing: 10,
+            pageActive: 1,
+            numPages: 1
+        }
     }),
 
     actions: {
@@ -68,6 +75,8 @@ export const useFacturasStore = defineStore('facturas', {
             filtered = this.filterByFecha(filtered);
 
             this.facturasFiltered = filtered;
+            this.pagination.start = 0;
+            this.pagination.pageActive = 1;
         },
 
         includesSearchInFilter(items){
