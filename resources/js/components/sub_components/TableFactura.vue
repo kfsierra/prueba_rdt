@@ -107,7 +107,9 @@
                                 <i class="bi bi-pencil-square"></i>
                             </button>
 
-                            <button class="w-10 h-10 bg-red-500 text-white cursor-pointer rounded hover:bg-red-700">
+                            <button
+                            @click="deleteFactura(factura.num_factura)"
+                            class="w-10 h-10 bg-red-500 text-white cursor-pointer rounded hover:bg-red-700">
                                 <i class="bi bi-trash"></i>
                             </button>
 
@@ -206,7 +208,7 @@ import { ref, computed } from 'vue';
 
 const useFacturas = useFacturasStore();
 const { facturasFiltered, modals, facturaDetail, facturaCreation } = storeToRefs(useFacturas);
-const { getFacturaDetail, deleteFacturaDetail, getNecessaryDataToCreate } = useFacturas;
+const { getFacturaDetail, deleteFacturaDetail, getNecessaryDataToCreate, deleteFactura } = useFacturas;
 
 /**
  * Reactive

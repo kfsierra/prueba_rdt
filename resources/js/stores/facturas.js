@@ -280,9 +280,21 @@ export const useFacturasStore = defineStore('facturas', {
 
             this.facturaCreation.creationError.message = null;
             this.facturaCreation.creationError.visible = false;
-            
+
             this.modals.facturaCreation = false;
 
+        },
+
+        /**
+         * Delete factura
+         */
+        deleteFactura(numFactura){
+            axios.post('api/deleteFactura', {
+                numFactura
+            }).then(response => {
+                this.facturas = this.facturas.filter(item => item.num_factura != numFactura);
+                this.facturasFiltered = this.facturas;
+            });
         }
 
     },

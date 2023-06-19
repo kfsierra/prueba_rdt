@@ -98,4 +98,14 @@ class FacturaController extends Controller
         return $status;
     }
 
+    public function destroy(Request $request)
+    {
+        FacturaProducto::where('num_factura', $request->numFactura)
+        ->delete();
+        Factura::where('num_factura', $request->numFactura)
+        ->delete();
+
+        return 'OK';
+    }
+
 }
