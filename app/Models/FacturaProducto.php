@@ -11,7 +11,7 @@ class FacturaProducto extends Model
     protected $table = 'factura_producto';
 
     protected $fillable = [
-        'id_factura',
+        'num_factura',
         'id_producto',
         'cantidad'
     ];

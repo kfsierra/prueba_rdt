@@ -50,56 +50,107 @@
             </tr>
         </thead>
         <tbody class="divide-y text-gray-700">
-            <tr v-for="(factura, index) in getFacturasPaginated" :key="factura.num_factura">
 
-                <td :class="[
-                    (index % 2 == 0) ? 'bg-gray-100' : 'bg-white',
-                    'p-4',
-                    'border-l-2 border-t-2 border-b-2 w-1/5'
-                ]">
-                    {{ factura.num_factura }}
-                </td>
+            <template v-for="(factura, index) in getFacturasPaginated" :key="factura.num_factura">
 
-                <td :class="[
-                    (index % 2 == 0) ? 'bg-gray-100' : 'bg-white',
-                    'p-4',
-                    'border-l-2 border-t-2 border-b-2 w-1/5'
-                ]">
-                    {{ factura.cliente_cedula }}
-                </td>
+                <tr>
 
-                <td :class="[
-                    (index % 2 == 0) ? 'bg-gray-100' : 'bg-white',
-                    'p-4',
-                    'border-l-2 border-t-2 border-b-2 w-1/5'
-                ]">
-                    {{ factura.cliente_nombre }}
-                </td>
+                    <td :class="[
+                        (index % 2 == 0) ? 'bg-gray-100' : 'bg-white',
+                        'p-4',
+                        'border-l-2 border-t-2 border-b-2 w-1/5'
+                    ]">
+                        {{ factura.num_factura }}
+                    </td>
 
-                <td :class="[
-                    (index % 2 == 0) ? 'bg-gray-100' : 'bg-white',
-                    'p-4',
-                    'border-l-2 border-t-2 border-b-2 w-1/5'
-                ]">
-                    {{ factura.fecha }}
-                </td>
+                    <td :class="[
+                        (index % 2 == 0) ? 'bg-gray-100' : 'bg-white',
+                        'p-4',
+                        'border-l-2 border-t-2 border-b-2 w-1/5'
+                    ]">
+                        {{ factura.cliente_cedula }}
+                    </td>
 
-                <td :class="[
-                    (index % 2 == 0) ? 'bg-gray-100' : 'bg-white',
-                    'p-4',
-                    'border-2 w-1/5'
-                ]">
-                    <div class="flex justify-center items-center gap-3">
-                        <button class="w-10 h-10 bg-blue-600 text-white cursor-pointer rounded hover:bg-blue-700">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                        <button class="w-10 h-10 bg-red-500 text-white cursor-pointer rounded hover:bg-red-700">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                </td>
+                    <td :class="[
+                        (index % 2 == 0) ? 'bg-gray-100' : 'bg-white',
+                        'p-4',
+                        'border-l-2 border-t-2 border-b-2 w-1/5'
+                    ]">
+                        {{ factura.cliente_nombre }}
+                    </td>
 
-            </tr>
+                    <td :class="[
+                        (index % 2 == 0) ? 'bg-gray-100' : 'bg-white',
+                        'p-4',
+                        'border-l-2 border-t-2 border-b-2 w-1/5'
+                    ]">
+                        {{ factura.fecha }}
+                    </td>
+
+                    <td :class="[
+                        (index % 2 == 0) ? 'bg-gray-100' : 'bg-white',
+                        'p-4',
+                        'border-2 w-1/5'
+                    ]">
+                        <div class="flex justify-center items-center gap-3">
+
+                            <button
+                            @click="getFacturaDetail(factura.num_factura)"
+                            class="w-10 h-10 bg-blue-600 text-white cursor-pointer rounded hover:bg-blue-700">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+
+                            <button class="w-10 h-10 bg-red-500 text-white cursor-pointer rounded hover:bg-red-700">
+                                <i class="bi bi-trash"></i>
+                            </button>
+
+                        </div>
+                    </td>
+
+                </tr>
+
+                <tr
+                v-if="facturaDetail?.num_factura == factura.num_factura">
+                    <td
+                    class="border-l-2 border-r-2 bg-green-100 p-2"
+                    colspan="5">
+
+                        <div class="w-full flex justify-center py-3">
+                            <table class="w-1/2">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4">Detalle de la factura</th>
+                                    </tr>
+                                    <tr class="text-slate-600">
+                                        <th class="bg-green-400 p-1">Producto</th>
+                                        <th class="bg-green-400 p-1">Precio</th>
+                                        <th class="bg-green-400 p-1">Cantidad</th>
+                                        <th class="bg-green-400 p-1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(itemFactura, index) in facturaDetail.items" :key="index">
+                                        <td class="bg-green-200 border-b-2 border-green-600 p-2">{{ itemFactura.producto_nombre }}</td>
+                                        <td class="bg-green-200 border-b-2 border-green-600 p-2">${{ itemFactura.producto_precio }}</td>
+                                        <td class="bg-green-200 border-b-2 border-green-600 p-2">{{ itemFactura.cantidad }}</td>
+                                        <td class="bg-green-200 border-b-2 border-green-600 p-2">
+
+                                            <button
+                                            @click="deleteFacturaDetail(factura.num_factura, itemFactura.producto_id)"
+                                            class="bg-red-500 w-6 h-6 rounded">
+                                                <i class="bi bi-trash text-white"></i>
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+            </template>
+
         </tbody>
     </table>
 
@@ -147,7 +198,8 @@ import { storeToRefs } from 'pinia';
 import { ref, computed } from 'vue';
 
 const useFacturas = useFacturasStore();
-const { facturasFiltered, filters, modals } = storeToRefs(useFacturas);
+const { facturasFiltered, modals, facturaDetail } = storeToRefs(useFacturas);
+const { getFacturaDetail, deleteFacturaDetail } = useFacturas;
 
 /**
  * Reactive

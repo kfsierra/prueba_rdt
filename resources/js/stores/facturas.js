@@ -19,7 +19,8 @@ export const useFacturasStore = defineStore('facturas', {
         modals: {
             default: false,
             filters: false,
-        }
+        },
+        facturaDetail: null
     }),
 
     actions: {
@@ -72,6 +73,30 @@ export const useFacturasStore = defineStore('facturas', {
             this.filters.fecha.fin = null;
 
             this.filterFacturas();
+        },
+
+        /**
+         * Get factura detail
+         */
+
+        getFacturaDetail(numFactura){
+            axios.post('api/getFacturaDetail', {
+                numFactura: numFactura
+            }).then(response => {
+                this.facturaDetail = response.data;
+            });
+        },
+
+        /**
+         * Delete factura detail
+         */
+        deleteFacturaDetail(numFactura, idProducto){
+            axios.post('api/deleteFacturaDetail', {
+                numFactura,
+                idProducto
+            }).then(response => {
+                this.facturaDetail.items = this.facturaDetail.items.filter(item => item.producto_id != idProducto);
+            })
         }
 
     },

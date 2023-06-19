@@ -23,9 +23,6 @@ const { facturas, facturasFiltered } = storeToRefs(useFacturas);
 axios.get('/api/getFacturas').then(response => {
     facturas.value = response.data;
     facturasFiltered.value = response.data;
-
-    console.log(response.data)
-
 }).catch(err => {});
 
 </script>

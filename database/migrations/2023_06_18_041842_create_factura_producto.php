@@ -25,6 +25,8 @@ return new class extends Migration
             ->references('id_producto')
             ->on('producto');
 
+            $table->integer('cantidad');
+
         });
     }
 
