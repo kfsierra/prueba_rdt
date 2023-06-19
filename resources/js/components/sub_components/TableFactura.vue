@@ -42,6 +42,8 @@
                 flex-col items-start">
 
                     <button
+                    @click="exportEXCEL()"
+                    class="flex gap-2 items-center hover:bg-blue-200 w-full p-2"
                     :disabled="!facturaExport.buttons.excel">
                         <i class="bi bi-file-earmark-excel text-green-500"></i>
                         Excel
@@ -282,7 +284,8 @@ const {
     getNecessaryDataToCreate,
     deleteFactura,
     filterFacturas,
-    exportPDF
+    exportPDF,
+    exportEXCEL
 } = useFacturas;
 
 /**

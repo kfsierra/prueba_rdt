@@ -331,6 +331,19 @@ export const useFacturasStore = defineStore('facturas', {
                 window.open(response.data, "_blank");
                 this.facturaExport.buttons.pdf = true;
             })
+        },
+
+        /**
+         * Export to excel
+         */
+        exportEXCEL(){
+
+            this.facturaExport.buttons.excel = false;
+            axios.post('api/exportEXCEL').then(response => {
+                window.open(response.data, "_blank");
+                this.facturaExport.buttons.excel = true;
+            });
+
         }
     },
 

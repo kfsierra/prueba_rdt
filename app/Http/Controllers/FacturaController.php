@@ -8,6 +8,8 @@ use App\Models\FacturaProducto;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\FacturasExportExcel;
 
 class FacturaController extends Controller
 {
@@ -119,6 +121,13 @@ class FacturaController extends Controller
         $pdf->save(storage_path('app/public/') . 'facturas.pdf');
 
         return url('/storage/facturas.pdf');
+    }
+
+    public function exportEXCEL(Excel $excel)
+    {
+        $facturas = $this->getDataExport();
+        $excel::store(new FacturasExportExcel($facturas), 'facturas.xlsx', 'public');
+        return url('/storage/facturas.xlsx');
     }
 
     protected function getDataExport()
