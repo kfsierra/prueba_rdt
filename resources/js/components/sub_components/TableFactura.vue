@@ -4,6 +4,7 @@
         <span class="font-bold text-slate-700">Lista de facturas</span>
         <div class="flex gap-3 text-slate-500">
             <button>Nuevo</button>
+            <button @click="modals.filters = true">Filtrar</button>
             <button>Exportar</button>
         </div>
     </div>
@@ -146,7 +147,7 @@ import { storeToRefs } from 'pinia';
 import { ref, computed } from 'vue';
 
 const useFacturas = useFacturasStore();
-const { facturas, facturasFiltered } = storeToRefs(useFacturas);
+const { facturasFiltered, filters, modals } = storeToRefs(useFacturas);
 
 /**
  * Reactive
@@ -184,7 +185,6 @@ const setNumPages = () => {
 }
 
 const clickButtonPagination = (button) => {
-
     switch (button) {
         case 'back':
 
@@ -203,7 +203,6 @@ const clickButtonPagination = (button) => {
 
             break;
     }
-
 }
 
 </script>

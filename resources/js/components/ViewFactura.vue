@@ -4,6 +4,8 @@
         <TableFactura/>
     </div>
 
+    <FilterTable/>
+
 </template>
 
 <script setup>
@@ -13,6 +15,7 @@ import { ref } from 'vue';
 import { useFacturasStore } from '@/stores/facturas';
 import { storeToRefs } from 'pinia';
 import TableFactura from './sub_components/TableFactura.vue';
+import FilterTable from './sub_components/FilterTable.vue';
 
 const useFacturas = useFacturasStore();
 const { facturas, facturasFiltered } = storeToRefs(useFacturas);
@@ -20,6 +23,9 @@ const { facturas, facturasFiltered } = storeToRefs(useFacturas);
 axios.get('/api/getFacturas').then(response => {
     facturas.value = response.data;
     facturasFiltered.value = response.data;
+
+    console.log(response.data)
+
 }).catch(err => {});
 
 </script>
