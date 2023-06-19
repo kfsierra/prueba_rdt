@@ -3,9 +3,55 @@
     <div class="flex justify-between border-b-2 -mx-4 px-4 pb-4 mb-4">
         <span class="font-bold text-slate-700">Lista de facturas</span>
         <div class="flex gap-3 text-slate-500">
-            <button @click="openModalFacturaCreation()">Nuevo</button>
-            <button @click="modals.filters = true">Filtrar</button>
-            <button>Exportar</button>
+
+            <button
+            @click="openModalFacturaCreation()"
+            class="flex gap-2 items-center justify-center hover:text-yellow-500">
+                Nuevo
+                <i class="bi bi-plus-lg"></i>
+            </button>
+
+            <button
+            class="flex gap-2 items-center justify-center hover:text-yellow-500"
+            @click="modals.filters = true">
+                Filtrar
+                <i class="bi bi-funnel-fill"></i>
+            </button>
+
+            <div class="relative">
+
+                <button
+                @click="facturaExport.dropdown.visible = !facturaExport.dropdown.visible"
+                class="flex gap-2 items-center justify-center hover:text-yellow-500">
+                    Exportar
+                    <i class="bi bi-caret-down-fill"></i>
+                </button>
+
+                <div
+                v-show="facturaExport.dropdown.visible"
+                class="
+                absolute
+                bottom-0
+                right-0
+                w-40
+                bg-white
+                translate-y-full
+                border-2
+                shadow
+                flex
+                flex-col items-start">
+                    <button class="flex gap-2 items-center hover:bg-blue-200 w-full p-2">
+                        <i class="bi bi-file-earmark-excel text-green-500"></i>
+                        Excel
+                    </button>
+                    <button class="flex gap-2 items-center hover:bg-blue-200 w-full p-2">
+                        <i class="bi bi-file-earmark-pdf text-red-500"></i>
+                        PDF
+                    </button>
+                </div>
+
+            </div>
+
         </div>
     </div>
 
@@ -213,8 +259,23 @@ import { ref, computed } from 'vue';
 import moment from 'moment';
 
 const useFacturas = useFacturasStore();
-const { facturasFiltered, modals, facturaDetail, facturaCreation, filters } = storeToRefs(useFacturas);
-const { getFacturaDetail, deleteFacturaDetail, getNecessaryDataToCreate, deleteFactura, filterFacturas } = useFacturas;
+
+const {
+    facturasFiltered,
+    modals,
+    facturaDetail,
+    facturaCreation,
+    filters,
+    facturaExport
+} = storeToRefs(useFacturas);
+
+const {
+    getFacturaDetail,
+    deleteFacturaDetail,
+    getNecessaryDataToCreate,
+    deleteFactura,
+    filterFacturas
+} = useFacturas;
 
 /**
  * Reactive

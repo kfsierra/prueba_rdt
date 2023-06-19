@@ -6,6 +6,7 @@ export const useFacturasStore = defineStore('facturas', {
     state: () => ({
         facturas: [],
         facturasFiltered: [],
+
         filters: {
             modalShowing: false,
             numFactura: null,
@@ -17,11 +18,13 @@ export const useFacturasStore = defineStore('facturas', {
             },
             search: ''
         },
+
         modals: {
             default: false,
             filters: false,
             facturaCreation: false
         },
+
         facturaDetail: null,
 
         facturaCreation: {
@@ -38,6 +41,12 @@ export const useFacturasStore = defineStore('facturas', {
             creationSuccess: {
                 visible: false,
                 message: 'Factura creada exitosamente'
+            }
+        },
+
+        facturaExport: {
+            dropdown: {
+                visible: false
             }
         },
 
