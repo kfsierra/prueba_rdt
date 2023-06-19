@@ -17,6 +17,7 @@ class FacturaController extends Controller
             'factura.created_at AS fecha'
         )
         ->join('cliente', 'cliente.id_cliente', '=', 'factura.id_cliente')
+        ->orderBy('factura.num_factura', 'asc')
         ->get();
 
         return $facturas;
