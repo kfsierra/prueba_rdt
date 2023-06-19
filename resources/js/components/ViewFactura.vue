@@ -5,13 +5,16 @@
     </div>
 
     <FilterTable/>
+    <FacturaCreation/>
 
 </template>
 
 <script setup>
 
+import FacturaCreation from '@/components/sub_components/FacturaCreation.vue';
+
 import axios from 'axios';
-import { ref } from 'vue';
+import { onMounted } from 'vue';
 import { useFacturasStore } from '@/stores/facturas';
 import { storeToRefs } from 'pinia';
 import TableFactura from './sub_components/TableFactura.vue';
@@ -20,9 +23,11 @@ import FilterTable from './sub_components/FilterTable.vue';
 const useFacturas = useFacturasStore();
 const { facturas, facturasFiltered } = storeToRefs(useFacturas);
 
-axios.get('/api/getFacturas').then(response => {
-    facturas.value = response.data;
-    facturasFiltered.value = response.data;
-}).catch(err => {});
+onMounted(() => {
+    axios.get('/api/getFacturas').then(response => {
+        facturas.value = response.data;
+        facturasFiltered.value = response.data;
+    }).catch(err => {});
+});
 
 </script>

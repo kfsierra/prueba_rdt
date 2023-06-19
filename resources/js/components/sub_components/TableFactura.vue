@@ -3,10 +3,17 @@
     <div class="flex justify-between border-b-2 -mx-4 px-4 pb-4 mb-4">
         <span class="font-bold text-slate-700">Lista de facturas</span>
         <div class="flex gap-3 text-slate-500">
-            <button>Nuevo</button>
+            <button @click="openModalFacturaCreation()">Nuevo</button>
             <button @click="modals.filters = true">Filtrar</button>
             <button>Exportar</button>
         </div>
+    </div>
+
+    <div
+    v-show="facturaCreation.creationSuccess.visible"
+    class="bg-green-200 text-green-800 p-2 my-4 rounded font-bold flex items-center gap-2">
+        <i class="bi bi-check2 text-2xl"></i>
+        {{ facturaCreation.creationSuccess.message }}
     </div>
 
     <div class="flex justify-between items-center">
@@ -198,8 +205,8 @@ import { storeToRefs } from 'pinia';
 import { ref, computed } from 'vue';
 
 const useFacturas = useFacturasStore();
-const { facturasFiltered, modals, facturaDetail } = storeToRefs(useFacturas);
-const { getFacturaDetail, deleteFacturaDetail } = useFacturas;
+const { facturasFiltered, modals, facturaDetail, facturaCreation } = storeToRefs(useFacturas);
+const { getFacturaDetail, deleteFacturaDetail, getNecessaryDataToCreate } = useFacturas;
 
 /**
  * Reactive
@@ -255,6 +262,11 @@ const clickButtonPagination = (button) => {
 
             break;
     }
+}
+
+const openModalFacturaCreation = () => {
+    getNecessaryDataToCreate();
+    modals.value.facturaCreation = true;
 }
 
 </script>

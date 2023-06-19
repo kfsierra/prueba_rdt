@@ -37,5 +37,35 @@ class ProductoSeeder extends Seeder
             'precio' => 5488,
             'stock' => 105
         ]);
+
+        Producto::create([
+            'nombre' => 'assa dasdad 256GB',
+            'precio' => 3212,
+            'stock' => 33
+        ]);
+
+        Producto::create([
+            'nombre' => 'Disdddssco dasaa 256GB',
+            'precio' => 5253,
+            'stock' => 312
+        ]);
+
+        Producto::create([
+            'nombre' => 'asa ssss 256GB',
+            'precio' => 53452,
+            'stock' => 111
+        ]);
+
+        Producto::create([
+            'nombre' => 'eee qwww 256GB',
+            'precio' => 432,
+            'stock' => 33
+        ]);
+
+        Producto::create([
+            'nombre' => 'dadsfa vvsdsfsd 256GB',
+            'precio' => 323,
+            'stock' => 33
+        ]);
     }
 }

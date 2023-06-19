@@ -3,6 +3,7 @@
     <div
     :class="[
         modals[refModal] ? 'translate-x-0' : 'translate-x-full',
+        classes,
         'fixed bottom-0 right-0 w-96 h-3/4 bg-white border-2 rounded transition-transform duration-500 p-4 shadow'
     ]">
         <div class="flex justify-between">
@@ -31,7 +32,8 @@ defineProps({
         type: String,
         default: 'default'
     },
-    title: String
+    title: String,
+    classes: String
 })
 
 </script>

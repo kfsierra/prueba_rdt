@@ -23,3 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('getFacturas', [FacturaController::class, 'getAll']);
 Route::post('getFacturaDetail', [FacturaProductoController::class, 'getFacturaDetail']);
 Route::post('deleteFacturaDetail', [FacturaProductoController::class, 'deleteFacturaDetail']);
+
+Route::get('getNecessaryDataToCreate', [FacturaController::class, 'getNecessaryDataToCreate']);
+Route::post('createFactura', [FacturaController::class, 'store']);
